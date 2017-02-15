@@ -33,5 +33,10 @@ This is a list of the functions currently in the file.
 - `nth_prime(x)` -> Returns the nth prime.
 - `collatz(x)` -> Returns the length of the hailstone sequence for x.
 - `longest_collatz_sequence(limit)` -> Returns the longest collatz sequence under n.
-
-__NEEDS TO BE FINISHED.__
+- `digits(x)` -> Returns a list of all the digits of x.
+- `digit_product(x)` -> Returns a product of all the digits.
+- `digits_to_num(arr)` -> Returns the number made up of the list of digits.
+- `largest_digit_product(x, bite)` -> Returns the largest number that is made by taking the product of a group of digits in the range of bite.
+- `is_pythagorean_triple(arr)` -> Checks if whether three items in an array are a pythagorean triple.
+- `sum_of_primes(limit)` -> Returns the sum of all primes underneath limit.
+- `totient(n)` -> Returns the phi(n), which is equal to the number of numbers that are coprime with n.
