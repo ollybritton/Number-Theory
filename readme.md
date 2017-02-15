@@ -5,6 +5,7 @@ _ Note: This is not a library, it's just stuff I do in my spare time._
 This is a list of the functions currently in the file.
 
 - `factors(x)` -> Returns the factors of x. (Duh...)
+
 - `prime_factors(x)` -> Returns the prime factors of x.
 - `factorial(x)` -> Returns the factorial of x , using recursion.
 - `gcd(x,y)` -> Returns the gcd of x & y.
@@ -39,4 +40,18 @@ This is a list of the functions currently in the file.
 - `largest_digit_product(x, bite)` -> Returns the largest number that is made by taking the product of a group of digits in the range of bite.
 - `is_pythagorean_triple(arr)` -> Checks if whether three items in an array are a pythagorean triple.
 - `sum_of_primes(limit)` -> Returns the sum of all primes underneath limit.
-- `totient(n)` -> Returns the phi(n), which is equal to the number of numbers that are coprime with n.
+- `totient(n)` -> Returns the phi(n), which is equal to the number of numbers that are co-prime with n.
+- `lambert_w(x)` -> Returns the y when `y*exp(y) = x`.
+- `sum_digits(x)` -> Returns the sum of the digits in a number.
+- `nth_tri(x)` -> Returns the nth triangle number.
+- `first_triangle_with_x_divisors(x)` -> Returns the first triangle number that has over x divisors, or factors.
+- `goldbach(x)` -> Returns the two primes that when added together make x... usually only works for even x.
+- `number_length(x)` -> Returns the length of a number's digits.
+- `length_of_decimal(x)` -> Returns how many decimal places there are in x.
+- `add_fractions(frac_1, frac_2)` -> Returns the fraction made when two fractions are added together. `frac_1` & `frac_2` are both strings.
+- `convert_to_fraction(x)` -> Turns a number into a fraction. It's a bit dodgy with big numbers.
+- `continued_fraction(x, limit)` -> Works out the continued fraction of x up to a limit.
+- `continued_fraction_at_point(x, limit, fraction = False)` -> Works out the number made when the continued fraction is cut of at that point. Setting fraction to true will give it as a fraction, although it's not always accurate.
+- `gamma(x)` -> Returns the gamma (factorial) of x.
+- `tetrarion(x, limit)` -> Returns `x^x^x^x...` limit amount of times.
+- `square_super_root(x)` -> Returns the number such that x^x = y.
