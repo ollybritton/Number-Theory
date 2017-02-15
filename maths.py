@@ -58,7 +58,7 @@ def prod(arr):
 
     return product
 
-def isPrime(x):
+def is_prime(x):
     if( sum(factors(x)) == x+1 ):
         return True
     else:
@@ -67,23 +67,12 @@ def isPrime(x):
 def next_prime(x):
     prime = x+1
     while True:
-        if( isPrime( (prime) ) ):
+        if( is_prime( (prime) ) ):
             break
         else:
             prime += 1
 
     return prime
-
-def primes_under_x(x):
-    start = 2
-    primes = []
-    while True:
-        if start >= x:
-            break
-        primes.append(start)
-        start = next_prime(start)
-
-    return primes
 
 def has_duplictaes(list):
     return (len(list) != len(set(list)))
@@ -133,7 +122,7 @@ def derivative_poly(poly, order = 1):
 
     return derivative
 
-def newton_root(poly, guess, limit = 10000):
+def newton_root(poly, limit = 10000, guess = 2):
     derivative = derivative_poly(poly)
     previous = guess
     nextVal = 0
@@ -172,8 +161,8 @@ def turn_poly_into_str(poly):
     return string
 
 
-def visual_root_find(poly, guess, limit = 10000):
-    root = newton_root(poly, guess, limit)
+def visual_root_find(poly, limit = 10000, guess = 2):
+    root = newton_root(poly, limit, guess)
     polyStr = turn_poly_into_str(poly)
     check = polyStr.replace("x", " " + str(root))
 
@@ -181,7 +170,7 @@ def visual_root_find(poly, guess, limit = 10000):
     print("Root Found: " + str(root))
     print("Check: " + str(check) + " = " + str(run_poly(poly, root)))
 
-def sumMultiplesOfTwo(limit, firstMultiple, secondMultiple):
+def sumMultiples(limit, firstMultiple, secondMultiple):
     sum = 0
     for i in range(0, limit):
         if i % firstMultiple == 0 or i % secondMultiple == 0:
@@ -236,7 +225,6 @@ def smallest_multiple(arr):
             i += 1
 
 
-
 def difference_between_sumSquares_vs_squareSum(limit):
     numbers = []
     for i in range(1, limit+1):
@@ -247,13 +235,6 @@ def difference_between_sumSquares_vs_squareSum(limit):
 
     return squareSum - sumSquares
 
-def factors(x):
-    factors = []
-    for i in range(1, x+1):
-        if x % i == 0:
-            factors.append(i)
-
-    return factors
 
 def can_be_divided(num, arr):
     count = 0
@@ -371,7 +352,7 @@ def first_triangle_with_x_divisors(x):
 def goldbach(x):
     for i in range(0, x):
         for j in range(0, x):
-            if i+j == x and isPrime(i) and isPrime(j):
+            if i+j == x and is_prime(i) and is_prime(j):
                 return i,j
 
 def calculateLimit(poly, value):
@@ -467,6 +448,4 @@ def square_super_root(x):
     # Number y such that x^x = y
     return math.exp(lambert_w( math.log(x) ))
 
-
-
-print( square_super_root(16) )
+print(visual_root_find([[1,3],[1,1],[-5,0]]))
