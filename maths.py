@@ -448,4 +448,18 @@ def square_super_root(x):
     # Number y such that x^x = y
     return math.exp(lambert_w( math.log(x) ))
 
-print(visual_root_find([[1,3],[1,1],[-5,0]]))
+def eta(s, limit = 10000):
+    summation = 0
+    for k in range(1, limit+1):
+        numerator = (-1)**(k-1)
+        denominator = k**s
+
+        summation += float(numerator)/float(denominator)
+
+    return summation
+
+
+def zeta(s, limit = 10000):
+    return eta(s)/(1-(2**(1-s)))
+
+print( math.sqrt(zeta(2)*6) )

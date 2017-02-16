@@ -154,3 +154,6 @@ Returns the fourth [hyperoperation](https://en.m.wikipedia.org/wiki/Hyperoperati
 
 - `square_super_root(x)`:<br>
 Returns the `ssrt(x)`, which is the number `y` such that `x^x` = `y`.
+
+- `zeta(s, limit = 10000)`:<br>
+Returns [the zeta](http://mathworld.wolfram.com/RiemannZetaFunction.html) of `s`, which is a special function in number theory, as it is deeply connected with prime numbers.
