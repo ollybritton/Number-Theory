@@ -105,7 +105,7 @@ Returns the number made up of the list of digits (it inverses digits).
 Returns the largest number that is made from multiplying a section of the digits `x`, which is `bite` long.
 
 - `is_pythagorean_triple(arr)`:<br>
-Checks if the three items in the array are a (pythagorean triple)[http://mathworld.wolfram.com/PythagoreanTriple.html].
+Checks if the three items in the array are a [pythagorean triple](http://mathworld.wolfram.com/PythagoreanTriple.html).
 
 - `sum_of_primes(limit)`:<br>
 Returns the sum of all primes underneath limit.
