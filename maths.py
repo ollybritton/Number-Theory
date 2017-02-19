@@ -1,4 +1,5 @@
 import math
+from fractions import Fraction
 
 pi = math.pi
 tau = 2*pi
@@ -311,7 +312,7 @@ def is_pythagorean_triple(arr):
     return arr[0]**2 + arr[1]**2 == arr[2]**2
 
 def sum_of_primes(limit):
-    return sum(primes_under_x(limit))
+    return sum(sieve(limit))
 
 def totient(n):
     summation = 0
@@ -386,18 +387,7 @@ def add_fractions(frac_1, frac_2):
     # a/b + c/d = ad+bc/bd
 
 def convert_to_fraction(x):
-    # NOTE: A Bit dodgy with big numbers.
-
-    length = number_length(x)
-    numerator = x*(10**length_of_decimal(x))
-    denominator = (10**length_of_decimal(x))
-
-    gcdNum = gcd(numerator, denominator)
-    print(gcdNum)
-    numerator /= gcdNum
-    denominator /= gcdNum
-
-    return str(numerator) + "/" + str(denominator)
+    return str(Fraction(x))
 
 
 def continued_fraction(x, limit):
@@ -412,7 +402,7 @@ def continued_fraction(x, limit):
 
     return expansion
 
-def continued_fraction_at_point(x, limit, fraction = False):
+def continued_fraction_at_point(x, limit, fraction = True):
     continued = continued_fraction(x, limit)
     summation = 0
 
@@ -420,7 +410,7 @@ def continued_fraction_at_point(x, limit, fraction = False):
         summation = 1/(continued[-i]+summation)
 
     if(fraction == True):
-        return convert_to_fraction(summation + continued[0])
+        return str(Fraction(summation + continued[0]))
     else:
         return summation + continued[0]
 
@@ -462,4 +452,79 @@ def eta(s, limit = 10000):
 def zeta(s, limit = 10000):
     return eta(s)/(1-(2**(1-s)))
 
-print( math.sqrt(zeta(2)*6) )
+def pi_prime_count(x):
+    return len(sieve(x))
+
+def is_perfect(x):
+    return sum(factors(x))-x == x
+
+def next_perfect(x):
+    i = x+1
+    while is_perfect(i) != True:
+        i += 1
+
+    return i
+
+def nth_perfect(x):
+    curr = 0
+    for i in range(0, x):
+        curr = next_perfect(curr)
+
+    return curr
+
+def three_numbers_that_sum_to_x(x):
+    vals = []
+    for i in range(1, x):
+        for j in range(1, x):
+            for k in range(1, x):
+                if i+j+k == x:
+                    vals.append([i,j,k])
+
+    return vals
+
+def pythagorean_triples_up_that_sum_to_x(x):
+    vals = []
+    partitions = three_numbers_that_sum_to_x(x)
+    for i in range(0, len(partitions)):
+        if is_pythagorean_triple(partitions[i]):
+            vals.append(partitions[i])
+
+    return vals
+
+def navigate_grid(arr, row_length, curr, direction):
+    # 1 = Down, -1 = Up
+    # 2 = Forwards, -2 = Backwards
+    # 3 = Diagonally Downwards, -3 = Diagonally Upwards.
+
+    if row_length**2 != len(arr) or row_length < 2:
+        print("The grid is to small or it isn't a square at that row_length.")
+        return None
+
+    if direction == 1:
+        return arr[curr + row_length]
+    elif direction == -1:
+        return arr[curr - row_length]
+    elif direction == 2:
+        return arr[curr + 1]
+    elif direction == -2:
+        return arr[curr - 1]
+    elif direction == 3:
+        return arr[curr + (row_length + 1)]
+    elif direction == -3:
+        return arr[curr - (row_length - 1)]
+
+def number_of_ways_through_n_by_n_grid(n):
+    return (factorial(2*n))/(factorial(n)**2)
+
+def digit_sum(x):
+    return sum(digits( x ))
+
+def nth_bernoulli(n):
+    A = [0] * (n+1)
+    for m in range(n+1):
+        A[m] = Fraction(1, m+1)
+        for j in range(m, 0, -1):
+          A[j-1] = j*(A[j-1] - A[j])
+    return A[0]
+
+print( nth_bernoulli(4) )

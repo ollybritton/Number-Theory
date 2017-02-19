@@ -157,3 +157,46 @@ Returns the `ssrt(x)`, which is the number `y` such that `x^x` = `y`.
 
 - `zeta(s, limit = 10000)`:<br>
 Returns [the zeta](http://mathworld.wolfram.com/RiemannZetaFunction.html) of `s`, which is a special function in number theory, as it is deeply connected with prime numbers.
+
+- `pi_prime_count(x)`:<br>
+Returns `π(x)`, the number of primes under `x`.
+
+- `is_perfect(x)`:<br>
+Returns true or false depending on whether `x` is a [perfect number](http://mathworld.wolfram.com/PerfectNumber.html). A perfect number is a number where the sum of its factors (bar itself) is equal to the number. For example: `6 -> [1,2,3] = 1+2+3 = 6`.
+
+- `next_perfect(x)`:<br>
+The next perfect number after `x`, excluding `x`.
+
+- `nth_perfect(x)`:<br>
+The nth perfect number.
+
+- `three_numbers_that_sum_to_x(x)`:<br>
+All the combinations of three numbers that add up to `x`. This is linked closely to [partitions](http://mathworld.wolfram.com/Partition.html), which is the amount of ways you can write `n` as a sum of any amount of numbers.
+
+- `pythagorean_triples_up_that_sum_to_x(x)`:<br>
+Kind of self explanatory, it gives you a list of all the pythagorean triples that when added together equal your number. For example, `pythagorean_triples_up_that_sum_to_x(30) = [[5,12,13],[12,5,13]]`. Note: For some numbers there will be no solutions.
+
+- `navigate_grid(arr, row_length, curr, direction)`:<br>
+Used to navigate a grid. Imagine you have the 4x4 grid,
+      1  2  3  4
+      5  6  7. 8
+      9  10 11 12
+      13 14 15 16
+
+    And you you are on 7 (indicated by the dot). This code allows you to navigate up, down, left, right, up diagonally and down diagonally. These all have they're own commands:
+
+  - `1`: Down.
+  - `-1`: Up.
+  - `2`: Forwards.
+  - `-2`: Backwards.
+  - `3`: Diagonally downwards.
+  - `-3`: Diagonally upwards.
+
+- `number_of_ways_through_n_by_n_grid(n)`:<br>
+Returns the number of ways you can travel through an `n` by `n` grid. This is done using the formula `2n!/2(n!)`.
+
+- `digit_sum(x)`:<br>
+Returns the sum of the digits of a number.
+
+- `nth_bernoulli(n)`:<br>
+Returns the `nth` [bernoulli number](http://mathworld.wolfram.com/BernoulliNumber.html), a number which arises in many taylor expansions of functions.
