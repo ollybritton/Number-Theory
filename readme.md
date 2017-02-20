@@ -155,8 +155,9 @@ Returns the fourth [hyperoperation](https://en.m.wikipedia.org/wiki/Hyperoperati
 - `square_super_root(x)`:<br>
 Returns the `ssrt(x)`, which is the number `y` such that `x^x` = `y`.
 
-- `zeta(s, limit = 10000)`:<br>
-Returns [the zeta](http://mathworld.wolfram.com/RiemannZetaFunction.html) of `s`, which is a special function in number theory, as it is deeply connected with prime numbers.
+- `zeta(s, limit = 10000, etaOptim = True)`:<br>
+Returns [the zeta](http://mathworld.wolfram.com/RiemannZetaFunction.html) of `s`, which is a special function in number theory, as it is deeply connected with prime numbers. This can be done in one of two ways, the first being with the `eta` function, denoted `η(s)`. This is the defualt method allows for more precision with less iterations (see below). The second, which occurs when `etaOptim = False`, will have less precision (why would you even wan't to):
+`zeta(2, 1000) - zeta(2, 1000, False) = 0.00099949016765`
 
 - `pi_prime_count(x)`:<br>
 Returns `π(x)`, the number of primes under `x`.
@@ -191,6 +192,7 @@ Used to navigate a grid. Imagine you have the 4x4 grid,
   - `-2`: Backwards.
   - `3`: Diagonally downwards.
   - `-3`: Diagonally upwards.
+
 
 - `number_of_ways_through_n_by_n_grid(n)`:<br>
 Returns the number of ways you can travel through an `n` by `n` grid. This is done using the formula `2n!/2(n!)`.

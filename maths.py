@@ -243,7 +243,7 @@ def can_be_divided(num, arr):
         if num % arr[i] == 0:
             count += 1
         else:
-            count -= 1
+            break
 
     return count == len(arr)
 
@@ -419,7 +419,6 @@ def gamma(x):
 
 def tetrarion(x, limit):
     if limit == infinity:
-        # return (lambert_w( -math.log(x) ))/(-math.log(x))
         if x < e**(1/e) and x > e**(-e) and x != 1:
             return (lambert_w( -math.log(x) ))/(-math.log(x))
         elif x == 1:
@@ -449,8 +448,15 @@ def eta(s, limit = 10000):
     return summation
 
 
-def zeta(s, limit = 10000):
-    return eta(s)/(1-(2**(1-s)))
+def zeta(s, limit = 10000, etaOptim = True):
+    if etaOptim  == True:
+        return eta(s)/(1-(2**(1-s)))
+    else:
+        summation = 0
+        for i in range(1, limit+1):
+            summation += float(1)/float(i)**s
+
+        return summation
 
 def pi_prime_count(x):
     return len(sieve(x))
@@ -526,5 +532,3 @@ def nth_bernoulli(n):
         for j in range(m, 0, -1):
           A[j-1] = j*(A[j-1] - A[j])
     return A[0]
-
-print( nth_bernoulli(4) )
