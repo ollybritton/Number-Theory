@@ -1,4 +1,4 @@
-import math
+import math, random
 from fractions import Fraction
 
 pi = math.pi
@@ -7,6 +7,7 @@ e = math.e
 epsilon = 0.000000001
 phi = (1+math.sqrt(5))/2
 infinity = float("infinity")
+euler = 0.5772156649
 
 def factors(x):
     factors = []
@@ -134,38 +135,11 @@ def newton_root(poly, limit = 10000, guess = 2):
 
     return previous
 
-def turn_poly_into_str(poly):
-    string = ""
-    for i in range(0, len(poly)):
-        if i != len(poly)-1:
-            coefficent = ""
-            if poly[i][0] != 1:
-                coefficent = str(poly[i][0])
-
-            power = ""
-            if poly[i][1] != 1:
-                power = "^" + str(poly[i][1])
-
-            string += coefficent + "x" + power + " + "
-
-        else:
-            coefficent = ""
-            if poly[i][0] != 1:
-                coefficent = str(poly[i][0])
-
-            power = ""
-            if poly[i][1] != 1:
-                power = "^" + str(poly[i][1])
-
-            string += coefficent + "x" + power
-
-    return string
-
 
 def visual_root_find(poly, limit = 10000, guess = 2):
     root = newton_root(poly, limit, guess)
-    polyStr = turn_poly_into_str(poly)
-    check = polyStr.replace("x", " " + str(root))
+    polyStr = convert_polynomial_to_string(poly, False)
+    check = polyStr.replace("x", "*" + str(root))
 
     print("Polynomial Enterered: " + polyStr)
     print("Root Found: " + str(root))
@@ -216,15 +190,6 @@ def largest_palindrome_product(digits):
                 allNums.append(i*j)
 
     return max(allNums)
-
-def smallest_multiple(arr):
-    i = 1
-    while True:
-        if can_be_divided(i, arr):
-            return i
-        else:
-            i += 1
-
 
 def difference_between_sumSquares_vs_squareSum(limit):
     numbers = []
@@ -531,4 +496,187 @@ def nth_bernoulli(n):
         A[m] = Fraction(1, m+1)
         for j in range(m, 0, -1):
           A[j-1] = j*(A[j-1] - A[j])
+
     return A[0]
+
+def diagamma(x, limit = 10000):
+    summation = 0
+    for i in range(limit):
+        summation += (x-1)/( (i+1)*(i+x) )
+
+    return summation - euler
+
+def prime_zeta(s, limit = 400):
+    if s == 1:
+        return infinity
+
+    count = 0
+    i = 2
+    summation = 0
+
+    while True:
+        if count < limit:
+            summation += 1.0/float(i**s)
+        else:
+            break
+
+        count += 1
+        i = next_prime(i)
+
+    return summation
+
+def convert_polynomial_to_string(poly, omit_ones = True):
+    strings = []
+    for i in range( len(poly) ):
+        coe = (poly[i][0])
+        power = (poly[i][1])
+
+        if(abs(coe) == coe):
+            if coe == 1 and power == 0:
+                part = "1"
+
+            elif coe == 1 and power == 1 and omit_ones == True:
+                part = "x"
+
+            elif coe == 1 and omit_ones == True:
+                part = "x^" + str(power)
+
+            elif power == 1:
+                part = str(coe) + "x"
+
+            else:
+                part = str(coe) + "x^" + str(power)
+
+        else:
+            if coe == -1 and power == 0:
+                part = "-1"
+
+            elif coe == -1 and power == 1 and omit_ones == True:
+                part = "-x"
+
+            elif coe == -1  and omit_ones == True:
+                part = "-x^" + str(power)
+
+            elif power == 1:
+                part = str(coe) + "x"
+
+            else:
+                part = str(coe) + "x^" + str(power)
+
+        strings.append(part)
+
+    final = ""
+    for i in range( len(strings) ):
+        if i == len(strings) - 1:
+            final += strings[i]
+
+        else:
+            if( list(strings[i+1])[0] == "-" ):
+                next_part = list(strings[i+1])
+                del next_part[0]
+                strings[i+1] = "".join(next_part)
+
+                final += strings[i] + " - "
+
+            else:
+                final += strings[i] + " + "
+
+
+    return final
+
+def general_sum(n, x, func):
+    summation = 0
+    for i in range(x, n+1):
+        summation += func(i)
+
+    return summation
+
+def general_product(n, x, func):
+    product = 1
+    for i in range(x, n+1):
+        product *= func(i)
+
+    return product
+
+def ackerman(x, y):
+    if x == 0:
+        return y + 1
+
+    elif y == 0:
+        return ackerman(x - 1, 1)
+
+    else:
+        return ackerman( x - 1, ackerman( x, y - 1 ) )
+
+def diagonal(x):
+    return ackerman(x, x)
+
+def evaluate_term(string):
+    string = list(string)
+    power = 0
+
+    if "^" in string:
+        temp = "".join(string).split("^")
+        power = float(temp[-1])
+
+    if "x" not in string and string[0] != "-":
+        return [ float(string[0]), 0 ]
+
+    elif "x" not in string and string[0] == "-":
+        return [ -float(string[1]), 0 ]
+
+    elif "^" not in string and string[0] != "-":
+        return [ float(string[0]), 1 ]
+
+    elif "^" not in string and string[0] == "-":
+        return [ -float(string[1]), 1 ]
+
+    elif string[0] == "x":
+        return [1, power]
+
+    elif string[0] == "-":
+        return [-float(string[1]), power]
+
+    else:
+        return [float(string[0]), power]
+
+def convert_string_into_polynomial(string):
+    terms = string.split(" ")
+    parts = []
+    final = ""
+
+    if(list(terms[0])[0] == "-"):
+        terms.insert(0, "-")
+
+    else:
+        terms.insert(0, "+")
+
+    iterator = 0
+    while True:
+        if iterator > len(terms)/2+1:
+            break
+
+        else:
+            parts.append( terms[iterator] + terms[iterator + 1] )
+
+        iterator += 2
+
+
+    for i in range(len(parts)):
+        parts[i] = parts[i].replace("+","")
+
+    for i in range(len(parts)):
+        parts[i] = evaluate_term(parts[i])
+
+    return parts
+
+def random_polynomial(order, pretty = False):
+    polynomial = []
+    for i in range( order ):
+        polynomial.append( [ random.randint(1, 20), i ] )
+
+    if pretty == True:
+        return convert_polynomial_to_string(polynomial)
+
+    else:
+        return polynomial

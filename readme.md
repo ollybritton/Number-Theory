@@ -11,7 +11,6 @@ Returns [the factors](http://mathworld.wolfram.com/Factor.html) of `x`, which ar
 - `prime_factors(x)`:<br>
 Returns [the prime factors](http://mathworld.wolfram.com/PrimeFactorization.html) of x, which are the unique prime numbers that when multiplied together make `x`. Some examples: `prime_factors(4) = [2,2]`, `prime_factors(12) = [2,2,3]`.
 
-
 - `factorial(x)`:<br>
 Returns [the factorial](http://mathworld.wolfram.com/Factorial.html) of x , using recursion. The factorial of an integer is defined as `x! = x*(x-1)*(x-2)...*1`. For example, `4! = 4*3*2*1 = 4*6 = 24`.
 
@@ -48,16 +47,12 @@ Returns the [derivative](http://mathworld.wolfram.com/Derivative.html) of a poly
 - `newton_root(poly, limit = 10000, guess = 2)`:<br>
 Returns the [root](http://mathworld.wolfram.com/Root.html) (also called the zero) of any polynomial, using [newtons method](http://mathworld.wolfram.com/NewtonsMethod.html).
 
-- `turn_poly_into_str(poly)`:<br>
-Attempts to turn a polynomial in the list format into a more human-readable format, however it currently can't do this very well.
-
 - `visual_root_find(poly, guess, limit = 10000)`:<br>
 Just a fancy way of looking at the root of a polynomial. Prints three things:
 
   - Polynomial entered.
   - Root found.
   - Evaluating the polynomial with the root.
-
 
 - `sumMultiples(limit, firstMultiple, secondMultiple)`:<br> Returns the sum of all the two under `limit`.
 
@@ -108,7 +103,7 @@ Returns the largest number that is made from multiplying a section of the digits
 Checks if the three items in the array are a [pythagorean triple](http://mathworld.wolfram.com/PythagoreanTriple.html).
 
 - `sum_of_primes(limit)`:<br>
-Returns the sum of all primes underneath limit.
+Returns the sum of all primes underneath the limit.
 
 - `totient(n)`:<br>
 Returns the [Euler's phi(n)](http://mathworld.wolfram.com/TotientFunction.html), which is equal to the number of numbers that are co-prime with n.
@@ -144,7 +139,7 @@ Turns a number into a fraction. It's currently a bit dodgy with big numbers.
 Works out the [simple continued fraction](http://mathworld.wolfram.com/SimpleContinuedFraction.html) of `x` up to a limit, which is a way of expressing any number as a fraction.
 
 - `continued_fraction_at_point(x, limit, fraction = False)`:<br>
-Works out the number made when you stop a continued fraction at a point.
+Works out the number made when you stop a continued fraction at a point. **WIP**
 
 - `gamma(x)`:<br>
 Returns the [gamma](http://mathworld.wolfram.com/GammaFunction.html) of `x`, which is the factorial function analytically extended to negative & non-integer inputs.
@@ -184,7 +179,7 @@ Used to navigate a grid. Imagine you have the 4x4 grid,
       9  10 11 12
       13 14 15 16
 
-    And you you are on 7 (indicated by the dot). This code allows you to navigate up, down, left, right, up diagonally and down diagonally. These all have they're own commands:
+    And you you are on 7 (indicated by the dot). This code allows you to navigate up, down, left, right, up diagonally and down diagonally. These all have their own commands:
 
   - `1`: Down.
   - `-1`: Up.
@@ -202,3 +197,43 @@ Returns the sum of the digits of a number.
 
 - `nth_bernoulli(n)`:<br>
 Returns the `nth` [bernoulli number](http://mathworld.wolfram.com/BernoulliNumber.html), a number which arises in many taylor expansions of functions.
+
+- `prime_zeta(s, limit)`:<br>
+Executes the prime zeta function, which is defined as the sum of all the reciprocals of primes to the power of s:
+
+        1/2^s + 1/3^s + 1/5^s + 1/7^s ...
+
+  *Note: Amazingly, the sum of all the reciprocals of primes diverges to infinity, but really, really slowly.*
+
+- `convert_polynomial_to_string(poly, omit_ones = True)`:<br>
+Does what it says on the tin. Converts a polynomial in the format `[[a,b],[c,d]]` ⤑ `ax^b + cx^d` into
+a human-readable format. If `omit_ones` is equal to false, than the code will allow `[1,1]` ⤑ `1x`, not `x`.
+
+- `general_sum(n, x, func)`:<br>
+A general summation using the mathematical sigma notation, `Σ`. `n` is the limit, `x` is the starting value and
+`func` is the function that is applied to all of the numbers. It adds up all the numbers from `x` through to `n`
+and applies a function to each number. For example, you can write the nth triangle number like so:
+
+      general_sum(*10*, 1, lambda x: x) = 10th Triangle Number, 55
+
+- `general_product(n, x, func)`:<br>
+A general product using the mathematical capital pi notation, `π`. `Σ`. `n` is the limit, `x` is the starting value and
+`func` is the function that is applied to all of the numbers. It returns the product of the numbers `x` through `n` all
+with a function applied to them. For example, you could write (15!\**2) as:
+
+      general_product(15, 1, lambda x: x**2)
+
+- `ackerman(x, y)`:<br>
+Returns the ackerman function of `x` and `y`. The ackerman function is a function in number theory that is **add more detail**.
+
+- `diagonal(x)`:<br>
+Returns the value of `ackerman(x, x)`. This grows super fast – after just `x = 4`, python can't handle it.
+
+- `evaluate_term(string)`:<br>
+Converts a term of a polynomial in the format `ax^b` into the array format `[a,b]`. Also allows things like `a` and `ax`.
+
+- `convert_string_into_polynomial`:<br>
+Converts an entire polynomial in the format `ax^b + cx^d + ...` into the array format `[[a,b], [c,d], ...]`.
+
+- `random_polynomial(order, pretty = False)`:<br>
+Generates a random polynomial that has order of `order` (funny that, huh?). If `pretty` is set to `True`, it will return the polynomial but coverted into a human readable format.
